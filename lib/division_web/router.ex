@@ -16,6 +16,11 @@ defmodule DivisionWeb.Router do
   scope "/", DivisionWeb do
     pipe_through :browser
 
+    resources "/register", UserController, only: [:create, :new]
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    delete "/logout", SessionController, :delete
+
     get "/", PageController, :index
   end
 
