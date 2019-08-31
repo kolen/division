@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -9,15 +9,20 @@
   <%= text_input f, :username %>
   <%= error_tag f, :username %>
 
+  <%= label f, :avatar %>
+  <%= file_input f, :avatar %>
+  <%= error_tag f, :avatar %>
+
   <%= label f, :password %>
-  <%= text_input f, :password %>
+  <%= text_input f, :password, type: :password %>
   <%= error_tag f, :password %>
 
   <%= label f, :password_confirmation %>
-  <%= text_input f, :password_confirmation %>
+  <%= text_input f, :password_confirmation, type: :password %>
   <%= error_tag f, :password_confirmation %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Sign up!" %>
+    <span><%= link "already have account?", to: Routes.session_path(@conn, :new) %></span>
   </div>
 <% end %>

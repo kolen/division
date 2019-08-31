@@ -20,7 +20,7 @@ defmodule Division.MixProject do
   def application do
     [
       mod: {Division.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :arc_ecto]
     ]
   end
 
@@ -44,7 +44,9 @@ defmodule Division.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:arc, "~> 0.11.0"},
+      {:arc_ecto, "~> 0.11.1"}
     ]
   end
 

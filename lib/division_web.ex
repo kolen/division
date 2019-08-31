@@ -42,6 +42,8 @@ defmodule DivisionWeb do
       import DivisionWeb.ErrorHelpers
       import DivisionWeb.Gettext
       alias DivisionWeb.Router.Helpers, as: Routes
+
+      import Division.Accounts.Auth, only: [signed_in?: 1, current_user: 1]
     end
   end
 

@@ -19,7 +19,15 @@ defmodule Division.Accounts.Auth do
     end
   end
 
-  def signed_in?(conn) do
+  def current_user(conn) do
     conn.assigns[:current_user]
+  end
+
+  # FIXME: >_<
+  def signed_in?(conn) do
+    case current_user(conn) do
+      nil -> false
+      _ -> true
+    end
   end
 end

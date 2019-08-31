@@ -1,10 +1,14 @@
 defmodule Division.Accounts.User do
   use Ecto.Schema
+  use Arc.Ecto.Schema
+
   import Ecto.Changeset
+  alias Division.Accounts.Encryption
 
   schema "users" do
     field :password_hash, :string
     field :username, :string
+    field :avatar, Division.Avatar.Type
 
     # Virtual fields
     field :password, :string, virtual: true
@@ -14,9 +18,10 @@ defmodule Division.Accounts.User do
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(user, params) do
     user
-    |> cast(attrs, [:username, :password])
+    |> cast(params, [:username, :password])
+    |> cast_attachments(params, [:avatar])
     |> validate_required([:username])
     |> unique_constraint(:username)
     |> validate_length(:password, min: 6)

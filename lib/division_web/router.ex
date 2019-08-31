@@ -14,16 +14,23 @@ defmodule DivisionWeb.Router do
   end
 
   scope "/", DivisionWeb do
-    pipe_through :browser
+    pipe_through [:browser, DivisionWeb.Plugs.Guest]
 
     resources "/register", UserController, only: [:create, :new]
     get "/login", SessionController, :new
     post "/login", SessionController, :create
+  end
+
+
+  scope "/", DivisionWeb do
+    pipe_through [:browser, DivisionWeb.Plugs.Auth]
+
     delete "/logout", SessionController, :delete
 
     get "/", PageController, :index
-  end
 
+    resources "/profile", UserController, only: [:show, :edit, :update]
+  end
   # Other scopes may use custom stacks.
   # scope "/api", DivisionWeb do
   #   pipe_through :api
