@@ -15,7 +15,8 @@ config :division, DivisionWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/Cyk81T5hJ6w/fCZNzYu5ueLTD0MsgrBGlAVK97E1S3zU4uaAafrbtplE/TAic+y",
   render_errors: [view: DivisionWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Division.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Division.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "aNXn6n4Q"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,6 +25,9 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :phoenix,
+  template_engines: [leex: Phoenix.LiveView.Engine]
 
 config :arc,
   storage: Arc.Storage.Local

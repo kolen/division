@@ -1,0 +1,16 @@
+<h2><%= @chat.name %></h2>
+
+<div class="form-group">
+  <%= form_for @message, "#", [phx_change: :typing, phx_submit: :message], fn _f -> %>
+    <%= text_input :message, :content, value: @message.changes[:content], phx_blur: "stop_typing", placeholder: "write your message here..." %>
+    <%= hidden_input :message, :user_id, value: @current_user.id  %>
+    <%= hidden_input :message, :chat_id, value: @chat.id  %>
+    <%= submit "submit" %>
+    <% end %>
+</div>
+
+<%= for message <- @chat.messages do %>
+  <p>
+    <%= message.user.username %>: <%= message.content %>
+  </p>
+<% end %>

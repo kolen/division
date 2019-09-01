@@ -1,35 +1,27 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <h1><%= gettext "Welcome to %{name}!", name: "City 17" %></h1>
   <p>A productive web framework that<br/>does not compromise speed or maintainability.</p>
 </section>
 
 <section class="row">
   <article class="column">
-    <h2>Resources</h2>
+    <h2>Chats:</h2>
     <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
+      <%= for chat <- @chats do %>
+        <li>
+          <%= link chat.name, to: Routes.chat_path(@conn, :show, chat) %>
+        </li>
+      <% end %>
     </ul>
   </article>
   <article class="column">
-    <h2>Help</h2>
+    <h2>Users:</h2>
     <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
+      <%= for user <- @users do %>
+        <li>
+          <%= link user.username, to: Routes.user_path(@conn, :show, user) %>
+        </li>
+      <% end %>
     </ul>
   </article>
 </section>

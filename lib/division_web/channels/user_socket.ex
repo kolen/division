@@ -3,6 +3,7 @@ defmodule DivisionWeb.UserSocket do
 
   ## Channels
   # channel "room:*", DivisionWeb.RoomChannel
+  channel "room", DivisionWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

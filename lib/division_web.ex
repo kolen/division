@@ -44,6 +44,8 @@ defmodule DivisionWeb do
       alias DivisionWeb.Router.Helpers, as: Routes
 
       import Division.Accounts.Auth, only: [signed_in?: 1, current_user: 1]
+
+      import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
     end
   end
 
@@ -52,6 +54,7 @@ defmodule DivisionWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 

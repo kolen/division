@@ -2,7 +2,12 @@
 
 <ul>
 
-  <%= Routes.static_path(@conn, Division.Avatar.url({@user.avatar, @user}, :thumb)) |> img_tag %>
+  <%= case @user.avatar do %>
+    <%= nil -> %>
+      <span>...</span>
+    <%= _ -> %>
+      <%= Routes.static_path(@conn, Division.Avatar.url({@user.avatar, @user}, :thumb)) |> img_tag %>
+  <% end %>
 
   <li>
     <strong>Username:</strong>

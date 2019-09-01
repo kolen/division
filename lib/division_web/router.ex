@@ -5,6 +5,7 @@ defmodule DivisionWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
+    plug Phoenix.LiveView.Flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -30,6 +31,7 @@ defmodule DivisionWeb.Router do
     get "/", PageController, :index
 
     resources "/profile", UserController, only: [:show, :edit, :update]
+    resources "/chats", ChatController #, only: [:show, :edit, :update]
   end
   # Other scopes may use custom stacks.
   # scope "/api", DivisionWeb do

@@ -22,7 +22,6 @@
         <a href="/">
           <h1>DIVISION</h1>
         </a>
-        <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
       </section>
     </header>
     <main role="main" class="container">
