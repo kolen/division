@@ -10,6 +10,7 @@ defmodule DivisionWeb.Plugs.Guest do
       |> redirect(to: DivisionWeb.Router.Helpers.page_path(conn, :index))
       |> halt()
     end
+
     conn
   end
 end

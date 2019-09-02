@@ -7,6 +7,5 @@ defmodule Division.Repo.Migrations.CreateChats do
 
       timestamps()
     end
-
   end
 end

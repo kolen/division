@@ -8,8 +8,10 @@ defmodule DivisionWeb.Plugs.Auth do
 
   def call(conn, _opts) do
     user_id = Plug.Conn.get_session(conn, :current_user_id)
+
     if user_id do
       current_user = Accounts.get_user!(user_id)
+
       conn
       |> assign(:current_user, current_user)
     else
@@ -18,5 +20,4 @@ defmodule DivisionWeb.Plugs.Auth do
       |> halt()
     end
   end
-
 end
