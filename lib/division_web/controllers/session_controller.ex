@@ -11,15 +11,16 @@ defmodule DivisionWeb.SessionController do
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"session" => auth_params}) do
     case Auth.login(auth_params, Repo) do
-    {:ok, user} ->
-      conn
-      |> put_session(:current_user_id, user.id)
-      |> put_flash(:info, "Signed in successfully.")
-      |> redirect(to: Routes.page_path(conn, :index))
-    :error ->
-      conn
-      |> put_flash(:error, "There was a problem with your username/password")
-      |> render("new.html")
+      {:ok, user} ->
+        conn
+        |> put_session(:current_user_id, user.id)
+        |> put_flash(:info, "Signed in successfully.")
+        |> redirect(to: Routes.page_path(conn, :index))
+
+      :error ->
+        conn
+        |> put_flash(:error, "There was a problem with your username/password")
+        |> render("new.html")
     end
   end
 

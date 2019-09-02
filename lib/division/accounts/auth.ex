@@ -3,9 +3,10 @@ defmodule Division.Accounts.Auth do
 
   def login(params, repo) do
     user = repo.get_by(User, username: String.downcase(params["username"]))
+
     case authenticate(user, params["password"]) do
       true -> {:ok, user}
-      _    -> :error
+      _ -> :error
     end
   end
 

@@ -22,7 +22,6 @@ defmodule DivisionWeb.Router do
     post "/login", SessionController, :create
   end
 
-
   scope "/", DivisionWeb do
     pipe_through [:browser, DivisionWeb.Plugs.Auth]
 
@@ -31,8 +30,9 @@ defmodule DivisionWeb.Router do
     get "/", PageController, :index
 
     resources "/profile", UserController, only: [:show, :edit, :update]
-    resources "/chats", ChatController #, only: [:show, :edit, :update]
+    resources "/chats", ChatController
   end
+
   # Other scopes may use custom stacks.
   # scope "/api", DivisionWeb do
   #   pipe_through :api

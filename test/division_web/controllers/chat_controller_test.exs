@@ -75,6 +75,7 @@ defmodule DivisionWeb.ChatControllerTest do
     test "deletes chosen chat", %{conn: conn, chat: chat} do
       conn = delete(conn, Routes.chat_path(conn, :delete, chat))
       assert redirected_to(conn) == Routes.chat_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.chat_path(conn, :show, chat))
       end

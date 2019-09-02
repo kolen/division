@@ -38,6 +38,7 @@ defmodule Division.Accounts.User do
 
   defp hash_password(changeset) do
     password = get_change(changeset, :password)
+
     if password do
       password_hash = Encryption.hash_password(password)
       put_change(changeset, :password_hash, password_hash)
