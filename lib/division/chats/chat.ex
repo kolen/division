@@ -15,5 +15,6 @@ defmodule Division.Chats.Chat do
     chat
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> validate_length(:name, min: 3)
   end
 end

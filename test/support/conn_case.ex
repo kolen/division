@@ -23,6 +23,21 @@ defmodule DivisionWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint DivisionWeb.Endpoint
+
+      def session_conn(conn) do
+        opts =
+          Plug.Session.init(
+            store: :cookie,
+            key: "foobar",
+            encryption_salt: "encrypted cookie salt",
+            signing_salt: "signing salt",
+            log: false,
+            encrypt: false
+          )
+        conn
+        |> Plug.Session.call(opts)
+        |> fetch_session()
+      end
     end
   end
 
