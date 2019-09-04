@@ -48,7 +48,8 @@ defmodule Division.MixProject do
       {:arc, "~> 0.11.0"},
       {:arc_ecto, "~> 0.11.1"},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
-      {:canada, "~> 2.0"}
+      {:canada, "~> 2.0"},
+      {:floki, "~> 0.22.0"}
     ]
   end
 

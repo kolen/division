@@ -22,7 +22,13 @@ defmodule DivisionWeb.UserControllerTest do
   describe "new user" do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :new))
-      assert html_response(conn, 200) =~ "New User"
+      response = html_response(conn, 200)
+      form_tag_action = response
+        |> Floki.find("form")
+        |> Floki.attribute("action")
+
+      assert response =~ "Registration"
+      assert form_tag_action == ["/register"]
     end
   end
 
