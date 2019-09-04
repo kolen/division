@@ -47,7 +47,8 @@ defmodule Division.MixProject do
       {:bcrypt_elixir, "~> 1.0"},
       {:arc, "~> 0.11.0"},
       {:arc_ecto, "~> 0.11.1"},
-      {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"}
+      {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
+      {:canada, "~> 2.0"}
     ]
   end
 

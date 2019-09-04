@@ -15,6 +15,12 @@ defmodule DivisionWeb.Router do
   end
 
   scope "/", DivisionWeb do
+    pipe_through [:browser]
+
+    get "/", PageController, :index
+  end
+
+  scope "/", DivisionWeb do
     pipe_through [:browser, DivisionWeb.Plugs.Guest]
 
     resources "/register", UserController, only: [:create, :new]
@@ -26,8 +32,6 @@ defmodule DivisionWeb.Router do
     pipe_through [:browser, DivisionWeb.Plugs.Auth]
 
     delete "/logout", SessionController, :delete
-
-    get "/", PageController, :index
 
     resources "/profile", UserController, only: [:show, :edit, :update]
     resources "/chats", ChatController
