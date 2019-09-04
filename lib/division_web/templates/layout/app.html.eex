@@ -13,11 +13,11 @@
         <nav role="navigation">
           <%= if signed_in?(@conn) do %>
             <span>You are signed in, <%= current_user(@conn).username %>!</span>
+            <%= link "Profile", to: Routes.user_path(@conn, :show, current_user(@conn).id) %>
+            <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %>
           <% else %>
             <span>You are guest!</span>
           <% end %>
-          <%= link "Profile", to: Routes.user_path(@conn, :show, 3) %>
-          <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %>
         </nav>
         <a href="/">
           <h1>DIVISION</h1>
