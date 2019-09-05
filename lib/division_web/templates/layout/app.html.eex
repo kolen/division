@@ -13,10 +13,18 @@
         <nav role="navigation">
           <%= if signed_in?(@conn) do %>
             <span>You are signed in, <%= current_user(@conn).username %>!</span>
-            <%= link "Profile", to: Routes.user_path(@conn, :show, current_user(@conn).id) %>
-            <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %>
+              <%= link "Profile", to: Routes.user_path(@conn, :show, current_user(@conn).id) %>
+              <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %>
           <% else %>
             <span>You are guest!</span>
+            <div class='row card-form' style="width: 20rem;">
+              <%= form_for @conn, Routes.session_path(@conn, :new), [as: :session], fn f -> %>
+                <%= text_input f, :username, placeholder: "Username" %>
+                <%= password_input f, :password, placeholder: "Password" %>
+                  <%= submit "Login", class: "btn right secondary-color" %>
+                  <span><%= link "Register", to: Routes.user_path(@conn, :new), class: "btn secondary-color" %></span>
+              <% end %>
+            </div>
           <% end %>
         </nav>
         <a href="/">
