@@ -10,12 +10,12 @@ defmodule DivisionWeb.Plugs.Auth do
     user_id = Plug.Conn.get_session(conn, :current_user_id)
     conn = get_user_from_session(conn, {})
 
-    unless conn.assigns[:current_user] do
+    if conn.assigns[:current_user] do
+      conn
+    else
       conn
       |> redirect(to: "/login")
       |> halt()
-    else
-      conn
     end
   end
 
