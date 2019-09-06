@@ -14,10 +14,7 @@ defmodule Division.Avatar do
 
   # Whitelist file extensions:
   def validate({file, _}) do
-    ~w(.jpg .jpeg .gif .png) |> Enum.member?(
-      Path.extname(file.file_name) 
-      |> String.downcase/1
-    )
+    ~w(.jpg .jpeg .gif .png) |> Enum.member?(Path.extname(file.file_name))
   end
 
   # Define a thumbnail transformation:
