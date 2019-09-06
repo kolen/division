@@ -6,12 +6,9 @@ defmodule Division.AccountsTest do
   describe "users" do
     alias Division.Accounts.User
 
-    @valid_attrs %{password_hash: "some password_hash", username: "some username"}
-    @update_attrs %{
-      password_hash: "some updated password_hash",
-      username: "some updated username"
-    }
-    @invalid_attrs %{password_hash: nil, username: nil}
+    @valid_attrs %{password: "valid password", username: "username"}
+    @update_attrs %{password: "some password", username: "newusername"}
+    @invalid_attrs %{password: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -22,20 +19,26 @@ defmodule Division.AccountsTest do
       user
     end
 
+    defp user_without_password(user) do
+      %{id: user.id, username: user.username, avatar: user.avatar}
+    end
+
     test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Accounts.list_users() == [user]
+      db_users = Enum.map(Accounts.list_users(), fn u -> user_without_password(u) end)
+      created_users = Enum.map([user], fn u -> user_without_password(u) end)
+      assert db_users == created_users
     end
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Accounts.get_user!(user.id) == user
+      assert user_without_password(Accounts.get_user!(user.id)) == user_without_password(user)
     end
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.password_hash == "some password_hash"
-      assert user.username == "some username"
+      assert user.password == "valid password"
+      assert user.username == "username"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -45,14 +48,14 @@ defmodule Division.AccountsTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
-      assert user.password_hash == "some updated password_hash"
-      assert user.username == "some updated username"
+      assert user.password == "some password"
+      assert user.username == "newusername"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
       assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
-      assert user == Accounts.get_user!(user.id)
+      assert user_without_password(user) == user_without_password(Accounts.get_user!(user.id))
     end
 
     test "delete_user/1 deletes the user" do
