@@ -3,20 +3,13 @@ defmodule DivisionWeb.UserControllerTest do
 
   alias Division.Accounts
 
-  @create_attrs %{password_hash: "some password_hash", username: "some username"}
-  @update_attrs %{password_hash: "some updated password_hash", username: "some updated username"}
-  @invalid_attrs %{password_hash: nil, username: nil}
+  @create_attrs %{password: "some_password", username: "goomba"}
+  @update_attrs %{password: "some_updated_password", username: "goombaaa"}
+  @invalid_attrs %{password: nil, username: nil}
 
   def fixture(:user) do
     {:ok, user} = Accounts.create_user(@create_attrs)
     user
-  end
-
-  describe "index" do
-    test "lists all users", %{conn: conn} do
-      conn = get(conn, Routes.user_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Users"
-    end
   end
 
   describe "new user" do
@@ -45,7 +38,7 @@ defmodule DivisionWeb.UserControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New User"
+      assert html_response(conn, 200) =~ "Registration"
     end
   end
 
@@ -53,7 +46,11 @@ defmodule DivisionWeb.UserControllerTest do
     setup [:create_user]
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
-      conn = get(conn, Routes.user_path(conn, :edit, user))
+      edit_path = Routes.user_path(conn, :edit, user)
+      conn = conn
+      |> session_conn()
+      |> put_session(:current_user_id, user.id)
+      |> get(edit_path)
       assert html_response(conn, 200) =~ "Edit User"
     end
   end
@@ -62,29 +59,22 @@ defmodule DivisionWeb.UserControllerTest do
     setup [:create_user]
 
     test "redirects when data is valid", %{conn: conn, user: user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
+      conn = conn
+      |> session_conn()
+      |> put_session(:current_user_id, user.id)
+      |> put(Routes.user_path(conn, :update, user), user: @update_attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "some updated password_hash"
+      assert html_response(conn, 200) =~ "goombaaa"
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
+      conn = conn
+      |> session_conn()
+      |> put_session(:current_user_id, user.id)
+      |> put(Routes.user_path(conn, :update, user), user: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit User"
-    end
-  end
-
-  describe "delete user" do
-    setup [:create_user]
-
-    test "deletes chosen user", %{conn: conn, user: user} do
-      conn = delete(conn, Routes.user_path(conn, :delete, user))
-      assert redirected_to(conn) == Routes.user_path(conn, :index)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.user_path(conn, :show, user))
-      end
     end
   end
 
