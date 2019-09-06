@@ -26,8 +26,7 @@ defmodule Division.AccountsTest do
     test "list_users/0 returns all users" do
       user = user_fixture()
       db_users = Enum.map(Accounts.list_users(), fn u -> user_without_password(u) end)
-      created_users = Enum.map([user], fn u -> user_without_password(u) end)
-      assert db_users == created_users
+      assert db_users == [user_without_password(user)]
     end
 
     test "get_user!/1 returns the user with given id" do
