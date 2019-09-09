@@ -20,7 +20,7 @@ defmodule Division.MixProject do
   def application do
     [
       mod: {Division.Application, []},
-      extra_applications: [:logger, :runtime_tools, :arc_ecto]
+      extra_applications: [:logger, :runtime_tools, :arc_ecto, :edeliver]
     ]
   end
 
@@ -49,7 +49,9 @@ defmodule Division.MixProject do
       {:arc_ecto, "~> 0.11.1"},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
       {:canada, "~> 2.0"},
-      {:floki, "~> 0.22.0"}
+      {:floki, "~> 0.22.0"},
+      {:edeliver, ">= 1.6.0"},
+      {:distillery, "~> 2.0", warn_missing: false}
     ]
   end
 
