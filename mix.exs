@@ -51,7 +51,7 @@ defmodule Division.MixProject do
       {:canada, "~> 2.0"},
       {:floki, "~> 0.22.0"},
       {:edeliver, ">= 1.6.0"},
-      {:distillery, "~> 2.0", warn_missing: false}
+      {:distillery, "~> 2.0.0", warn_missing: false}
     ]
   end
 

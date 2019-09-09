@@ -4,8 +4,8 @@ BUILD_HOST="division.im"
 BUILD_USER="$USER"
 BUILD_AT="/home/$USER/division"
 
-STAGING_HOSTS="division.im"
-STAGING_USER="deploy"
+PRODUCTION_HOSTS="division.im"
+PRODUCTION_USER="deploy"
 DELIVER_TO="/var/www/builds"
 
 # For *Phoenix* projects, symlink prod.secret.exs to our tmp source
