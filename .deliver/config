@@ -11,7 +11,7 @@ RELEASE_DIR="/tmp/edeliver/$APP/builds/_build/prod/rel/$APP"
 GIT_CLEAN_PATHS="_build rel priv/static"
 
 PRODUCTION_HOSTS="division.im"
-PRODUCTION_USER="deploy"
+PRODUCTION_USER="$USER"
 DELIVER_TO="/var/www"
 USING_DISTILLERY=true
 
