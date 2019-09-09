@@ -1,7 +1,7 @@
 APP="division"
 
 BUILD_HOST="division.im"
-BUILD_USER="$USER"
+BUILD_USER="deploy"
 BUILD_AT="/tmp/edeliver/$APP/builds"
 
 # prevent re-installing node modules; this defaults to "."
@@ -11,7 +11,7 @@ RELEASE_DIR="/tmp/edeliver/$APP/builds/_build/prod/rel/$APP"
 GIT_CLEAN_PATHS="_build rel priv/static"
 
 PRODUCTION_HOSTS="division.im"
-PRODUCTION_USER="$USER"
+PRODUCTION_USER="deploy"
 DELIVER_TO="/var/www"
 USING_DISTILLERY=true
 
