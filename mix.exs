@@ -50,8 +50,8 @@ defmodule Division.MixProject do
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
       {:canada, "~> 2.0"},
       {:floki, "~> 0.22.0"},
-      {:edeliver, ">= 1.6.0"},
-      {:distillery, "~> 2.0.0", warn_missing: false}
+      {:edeliver, ">= 1.7.0"},
+      {:distillery, "~> 2.1", warn_missing: false}
     ]
   end
 
