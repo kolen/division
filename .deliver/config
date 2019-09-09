@@ -7,6 +7,7 @@ BUILD_AT="/home/$USER/division"
 PRODUCTION_HOSTS="division.im"
 PRODUCTION_USER="deploy"
 DELIVER_TO="/var/www/builds"
+USING_DISTILLERY=true
 
 # For *Phoenix* projects, symlink prod.secret.exs to our tmp source
 pre_erlang_get_and_update_deps() {
