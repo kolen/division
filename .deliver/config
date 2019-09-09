@@ -2,7 +2,13 @@ APP="division"
 
 BUILD_HOST="division.im"
 BUILD_USER="$USER"
-BUILD_AT="/home/$USER/division"
+BUILD_AT="/tmp/edeliver/$APP/builds"
+
+# prevent re-installing node modules; this defaults to "."
+
+RELEASE_DIR="/tmp/edeliver/$APP/builds/_build/prod/rel/$APP"
+
+GIT_CLEAN_PATHS="_build rel priv/static"
 
 PRODUCTION_HOSTS="division.im"
 PRODUCTION_USER="deploy"
@@ -17,4 +23,18 @@ pre_erlang_get_and_update_deps() {
       ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
     "
   fi
+}
+
+pre_erlang_clean_compile() {
+  status "Running phoenix.digest" # log output prepended with "----->"
+  __sync_remote " # runs the commands on the build host
+    # [ -f ~/.profile ] && source ~/.profile # load profile (optional)
+    source ~/.profile
+    # echo \$PATH # check if rbenv is in the path
+    set -e # fail if any command fails (recommended)
+    cd '$BUILD_AT' # enter the build directory on the build host (required)
+    # prepare something
+    mkdir -p priv/static # required by the phoenix.digest task
+    npm install
+  "
 }
