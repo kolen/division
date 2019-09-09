@@ -16,6 +16,7 @@ config :division, DivisionWeb.Endpoint,
 
 # Do not print debug messages in production
 config :logger, level: :info
+config :division, DivisionWeb.Endpoint, server: true
 
 # ## SSL Support
 #
