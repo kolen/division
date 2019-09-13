@@ -1,5 +1,6 @@
 defmodule Division.AccountsTest do
   use Division.DataCase
+  alias Comeonin.Bcrypt
 
   alias Division.Accounts
 
@@ -7,7 +8,7 @@ defmodule Division.AccountsTest do
     alias Division.Accounts.User
 
     @valid_attrs %{password: "valid password", username: "username"}
-    @update_attrs %{password: "some password", username: "newusername"}
+    @update_attrs %{password: "some new password", username: "newusername"}
     @invalid_attrs %{password: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -31,7 +32,10 @@ defmodule Division.AccountsTest do
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert user_without_password(Accounts.get_user!(user.id)) == user_without_password(user)
+      db_user = Accounts.get_user!(user.id)
+      assert user_without_password(db_user) == user_without_password(user)
+      { check_pass, _ } = Bcrypt.check_pass(db_user, user.password)
+      assert check_pass == :ok
     end
 
     test "create_user/1 with valid data creates a user" do
@@ -47,8 +51,10 @@ defmodule Division.AccountsTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
-      assert user.password == "some password"
-      assert user.username == "newusername"
+      db_user = Accounts.get_user!(user.id)
+      { check_pass, _ } = Bcrypt.check_pass(db_user, @update_attrs[:password])
+      assert check_pass == :ok
+      assert db_user.username == @update_attrs[:username]
     end
 
     test "update_user/2 with invalid data returns error changeset" do
