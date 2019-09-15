@@ -4,11 +4,13 @@ defmodule Division.Accounts.User do
 
   import Ecto.Changeset
   alias Division.Accounts.Encryption
+  alias Division.Chats.Chat
 
   schema "users" do
     field :password_hash, :string
     field :username, :string
     field :avatar, Division.Avatar.Type
+    belongs_to :chat, Chat # Durov, put back the wall!
 
     # Virtual fields
     field :password, :string, virtual: true
@@ -20,7 +22,7 @@ defmodule Division.Accounts.User do
   @doc false
   def changeset(user, params) do
     user
-    |> cast(params, [:username, :password])
+    |> cast(params, [:username, :password, :chat_id])
     |> cast_attachments(params, [:avatar])
     |> validate_required([:username])
     |> unique_constraint(:username)

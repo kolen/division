@@ -2,9 +2,12 @@ defmodule DivisionWeb.UserController do
   use DivisionWeb, :controller
 
   import Canada, only: [can?: 2]
+  import Ecto.Query, warn: false
 
   alias Division.Accounts
   alias Division.Accounts.User
+  alias Division.Chats.Chat
+  alias Division.Chats.Message
 
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
@@ -25,12 +28,28 @@ defmodule DivisionWeb.UserController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
+  def show(conn, %{"id" => user_id}) do
+    msg_query =
+      from msg in Message,
+        limit: 6,
+        order_by: [desc: msg.inserted_at],
+        preload: [:user]
+
+    chat_query =
+      from c in Chat,
+        preload: [messages: ^msg_query]
+
+    query =
+      from u in User,
+        where: u.id == ^user_id,
+        preload: [chat: ^chat_query]
+
+    user = Division.Repo.one(query)
+
     if conn.assigns[:current_user] |> can? read(user) do
       conn
       |> put_flash(:info, "Welcome to #{user.username} page.")
-      |> render("show.html", user: user)
+      |> render("show.html", user: user, chat: user.chat)
     else
       conn
       |> put_flash(:info, "Fuck you.")
@@ -54,7 +73,6 @@ defmodule DivisionWeb.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Accounts.get_user!(id)
     if conn.assigns[:current_user] |> can? update(user) do
-      changeset = Accounts.change_user(user)
       case Accounts.update_user(user, user_params) do
         {:ok, user} ->
           conn

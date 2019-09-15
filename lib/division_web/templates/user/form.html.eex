@@ -21,6 +21,8 @@
   <%= text_input f, :password_confirmation, type: :password %>
   <%= error_tag f, :password_confirmation %>
 
+  <%= select f, :chat_id, 1..8  %>
+
   <div>
     <%= submit "Sign up!" %>
     <span><%= link "already have account?", to: Routes.session_path(@conn, :new) %></span>

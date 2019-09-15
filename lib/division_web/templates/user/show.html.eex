@@ -15,8 +15,18 @@
   </li>
 
   <li>
-    <strong>Password hash:</strong>
-    <%= @user.password_hash %>
+    <strong>Chat wall:</strong>
+    <%= case @chat do %>
+      <%= nil -> %>
+        <span>Chat is not atached.</span>
+      <%= _ -> %>
+        <%= @chat.name %>
+        <%= for message <- @chat.messages do %>
+          <p>
+            <%= message.user.username %>: <%= message.content %>
+          </p>
+        <% end %>
+    <% end %>
   </li>
 
 </ul>
