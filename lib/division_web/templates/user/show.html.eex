@@ -1,34 +1,32 @@
-<h1>Show User</h1>
+<div class="row">
 
-<ul>
+  <div class="column column-33">
+    <%= case @user.avatar do %>
+      <%= nil -> %>
+        <span>...</span>
+      <%= _ -> %>
+        <%= Routes.static_path(@conn, Division.Avatar.url({@user.avatar, @user}, :thumb)) |> img_tag %>
+    <% end %>
+    <%= if current_user(@conn).id == @user.id do %>
+      <span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>
+    <% end %>
+  </div>
 
-  <%= case @user.avatar do %>
-    <%= nil -> %>
-      <span>...</span>
-    <%= _ -> %>
-      <%= Routes.static_path(@conn, Division.Avatar.url({@user.avatar, @user}, :thumb)) |> img_tag %>
-  <% end %>
-
-  <li>
-    <strong>Username:</strong>
-    <%= @user.username %>
-  </li>
-
-  <li>
-    <strong>Chat wall:</strong>
+  <div class="column column-67">
+    <h2>
+      <%= @user.username %>
+    </h2>
     <%= case @chat do %>
       <%= nil -> %>
         <span>Chat is not atached.</span>
       <%= _ -> %>
-        <%= @chat.name %>
         <%= for message <- @chat.messages do %>
           <p>
             <%= message.user.username %>: <%= message.content %>
           </p>
         <% end %>
     <% end %>
-  </li>
+  </div>
 
-</ul>
+</div>
 
-<span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>

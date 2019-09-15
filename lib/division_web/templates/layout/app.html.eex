@@ -25,7 +25,7 @@
           <img
             src="<%= Routes.static_path(@conn, "/images/division.svg") %>"
             alt="Division social messenger"
-            style="height: 80px"
+            style="height: 48px"
           />
         </a>
       </section>

@@ -48,7 +48,6 @@ defmodule DivisionWeb.UserController do
 
     if conn.assigns[:current_user] |> can? read(user) do
       conn
-      |> put_flash(:info, "Welcome to #{user.username} page.")
       |> render("show.html", user: user, chat: user.chat)
     else
       conn
