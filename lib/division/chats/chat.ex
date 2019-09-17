@@ -16,7 +16,7 @@ defmodule Division.Chats.Chat do
   @doc false
   def changeset(chat, attrs) do
     chat
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:name, :private])
     |> validate_required([:name])
     |> validate_length(:name, min: 3)
   end

@@ -33,12 +33,7 @@ defmodule DivisionWeb.UserControllerTest do
       assert redirected_to(conn) == Routes.user_path(conn, :show, id)
 
       conn = get(conn, Routes.user_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show User"
-    end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Registration"
+      assert html_response(conn, 200) =~ "Chat is not atached"
     end
   end
 
