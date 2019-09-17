@@ -6,8 +6,9 @@ defmodule Division.Chats.Chat do
 
   schema "chats" do
     field :name, :string
+    field :private, :boolean
     has_many :messages, Message, on_delete: :delete_all
-    has_many :users, User, on_delete: :delete_all
+    has_many :users, User
 
     timestamps()
   end
