@@ -10,7 +10,8 @@ defmodule Division.Accounts.User do
     field :password_hash, :string
     field :username, :string
     field :avatar, Division.Avatar.Type
-    belongs_to :chat, Chat # Durov, put back the wall!
+    # Durov, put back the wall!
+    belongs_to :chat, Chat
 
     # Virtual fields
     field :password, :string, virtual: true

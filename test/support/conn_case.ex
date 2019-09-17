@@ -34,6 +34,7 @@ defmodule DivisionWeb.ConnCase do
             log: false,
             encrypt: false
           )
+
         conn
         |> Plug.Session.call(opts)
         |> fetch_session()

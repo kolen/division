@@ -16,10 +16,10 @@ defmodule Division.Avatar do
   def validate({file, _}) do
     ~w(.jpg .jpeg .gif .png)
     |> Enum.member?(
-         file.file_name
-         |> Path.extname
-         |> String.downcase
-       )
+      file.file_name
+      |> Path.extname()
+      |> String.downcase()
+    )
   end
 
   # Define a thumbnail transformation:

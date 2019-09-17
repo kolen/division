@@ -23,10 +23,12 @@ defmodule DivisionWeb.ChatControllerTest do
     setup [:create_user]
 
     test "lists all chats", %{conn: conn, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> get(Routes.chat_path(conn, :index))
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> get(Routes.chat_path(conn, :index))
+
       assert html_response(conn, 200) =~ "Listing Chats"
     end
   end
@@ -35,10 +37,12 @@ defmodule DivisionWeb.ChatControllerTest do
     setup [:create_user]
 
     test "renders form", %{conn: conn, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> get(Routes.chat_path(conn, :new))
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> get(Routes.chat_path(conn, :new))
+
       assert html_response(conn, 200) =~ "New Chat"
     end
   end
@@ -47,10 +51,11 @@ defmodule DivisionWeb.ChatControllerTest do
     setup [:create_user]
 
     test "redirects to show when data is valid", %{conn: conn, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> post(Routes.chat_path(conn, :create), chat: @create_attrs)
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> post(Routes.chat_path(conn, :create), chat: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.chat_path(conn, :show, id)
@@ -60,11 +65,13 @@ defmodule DivisionWeb.ChatControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
-      response = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> post(Routes.chat_path(conn, :create), chat: @invalid_attrs)
-      |> html_response(200)
+      response =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> post(Routes.chat_path(conn, :create), chat: @invalid_attrs)
+        |> html_response(200)
+
       assert response =~ "New Chat"
     end
   end
@@ -74,10 +81,12 @@ defmodule DivisionWeb.ChatControllerTest do
     setup [:create_chat]
 
     test "renders form for editing chosen chat", %{conn: conn, chat: chat, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> get(Routes.chat_path(conn, :edit, chat))
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> get(Routes.chat_path(conn, :edit, chat))
+
       assert html_response(conn, 200) =~ "Edit Chat"
     end
   end
@@ -87,10 +96,12 @@ defmodule DivisionWeb.ChatControllerTest do
     setup [:create_chat]
 
     test "redirects when data is valid", %{conn: conn, chat: chat, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> put(Routes.chat_path(conn, :update, chat), chat: @update_attrs)
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> put(Routes.chat_path(conn, :update, chat), chat: @update_attrs)
+
       assert redirected_to(conn) == Routes.chat_path(conn, :show, chat)
 
       conn = get(conn, Routes.chat_path(conn, :show, chat))
@@ -98,10 +109,12 @@ defmodule DivisionWeb.ChatControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, chat: chat, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> put(Routes.chat_path(conn, :update, chat), chat: @invalid_attrs)
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> put(Routes.chat_path(conn, :update, chat), chat: @invalid_attrs)
+
       assert html_response(conn, 200) =~ "Edit Chat"
     end
   end
@@ -111,10 +124,12 @@ defmodule DivisionWeb.ChatControllerTest do
     setup [:create_chat]
 
     test "deletes chosen chat", %{conn: conn, chat: chat, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> delete(Routes.chat_path(conn, :delete, chat))
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> delete(Routes.chat_path(conn, :delete, chat))
+
       assert redirected_to(conn) == Routes.chat_path(conn, :index)
     end
   end

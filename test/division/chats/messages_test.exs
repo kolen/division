@@ -41,7 +41,6 @@ defmodule Division.MessagesTest do
     @update_attrs %{content: "some updated content"}
     @invalid_attrs %{content: nil}
 
-
     test "list_messages/0 returns all messages", %{user: user, chat: chat} do
       message = message_fixture(user, chat)
       assert Chats.list_messages() == [message]

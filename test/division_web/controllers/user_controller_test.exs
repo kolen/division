@@ -16,7 +16,9 @@ defmodule DivisionWeb.UserControllerTest do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :new))
       response = html_response(conn, 200)
-      form_tag_action = response
+
+      form_tag_action =
+        response
         |> Floki.find("form")
         |> Floki.attribute("action")
 
@@ -42,10 +44,13 @@ defmodule DivisionWeb.UserControllerTest do
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       edit_path = Routes.user_path(conn, :edit, user)
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> get(edit_path)
+
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> get(edit_path)
+
       assert html_response(conn, 200) =~ "Edit User"
     end
   end
@@ -54,10 +59,12 @@ defmodule DivisionWeb.UserControllerTest do
     setup [:create_user]
 
     test "redirects when data is valid", %{conn: conn, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> put(Routes.user_path(conn, :update, user), user: @update_attrs)
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> put(Routes.user_path(conn, :update, user), user: @update_attrs)
+
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
@@ -65,10 +72,12 @@ defmodule DivisionWeb.UserControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
-      conn = conn
-      |> session_conn()
-      |> put_session(:current_user_id, user.id)
-      |> put(Routes.user_path(conn, :update, user), user: @invalid_attrs)
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> put(Routes.user_path(conn, :update, user), user: @invalid_attrs)
+
       assert html_response(conn, 200) =~ "Edit User"
     end
   end

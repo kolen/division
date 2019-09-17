@@ -34,7 +34,7 @@ defmodule Division.AccountsTest do
       user = user_fixture()
       db_user = Accounts.get_user!(user.id)
       assert user_without_password(db_user) == user_without_password(user)
-      { check_pass, _ } = Bcrypt.check_pass(db_user, user.password)
+      {check_pass, _} = Bcrypt.check_pass(db_user, user.password)
       assert check_pass == :ok
     end
 
@@ -52,7 +52,7 @@ defmodule Division.AccountsTest do
       user = user_fixture()
       assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
       db_user = Accounts.get_user!(user.id)
-      { check_pass, _ } = Bcrypt.check_pass(db_user, @update_attrs[:password])
+      {check_pass, _} = Bcrypt.check_pass(db_user, @update_attrs[:password])
       assert check_pass == :ok
       assert db_user.username == @update_attrs[:username]
     end

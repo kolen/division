@@ -46,7 +46,7 @@ defmodule DivisionWeb.UserController do
 
     user = Division.Repo.one(query)
 
-    if conn.assigns[:current_user] |> can? read(user) do
+    if conn.assigns[:current_user] |> can?(read(user)) do
       conn
       |> render("show.html", user: user, chat: user.chat)
     else
@@ -58,8 +58,10 @@ defmodule DivisionWeb.UserController do
 
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    if conn.assigns[:current_user] |> can? edit(user) do
+
+    if conn.assigns[:current_user] |> can?(edit(user)) do
       changeset = Accounts.change_user(user)
+
       conn
       |> render("edit.html", user: user, changeset: changeset)
     else
@@ -71,7 +73,8 @@ defmodule DivisionWeb.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Accounts.get_user!(id)
-    if conn.assigns[:current_user] |> can? update(user) do
+
+    if conn.assigns[:current_user] |> can?(update(user)) do
       case Accounts.update_user(user, user_params) do
         {:ok, user} ->
           conn
@@ -87,7 +90,6 @@ defmodule DivisionWeb.UserController do
       |> put_flash(:info, "You can't edit this user.")
       |> redirect(to: Routes.user_path(conn, :show, user))
     end
-
   end
 
   # def delete(conn, %{"id" => id}) do
