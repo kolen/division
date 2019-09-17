@@ -64,7 +64,7 @@ defmodule DivisionWeb.UserController do
       |> render("edit.html", user: user, changeset: changeset)
     else
       conn
-      |> put_flash(:info, "User deleted successfully.")
+      |> put_flash(:info, "You can't edit this user.")
       |> redirect(to: Routes.page_path(conn, :index))
     end
   end
