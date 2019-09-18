@@ -117,7 +117,10 @@ defmodule Division.Chats do
 
   """
   def list_chats do
-    Repo.all(Chat)
+    query = from chat in Chat,
+      where: chat.private == false
+
+    Repo.all(query)
   end
 
   @doc """
