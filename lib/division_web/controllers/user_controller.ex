@@ -15,7 +15,7 @@ defmodule DivisionWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Accounts.create_user(user_params) do
+    case Accounts.create_user(user_params |> Map.delete("avatar")) do
       {:ok, user} ->
         Accounts.update_user(user, %{"avatar" => user_params["avatar"]})
         conn
