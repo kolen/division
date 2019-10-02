@@ -4,7 +4,7 @@ defmodule DivisionWeb.ChatControllerTest do
   alias Division.Chats
   alias Division.Accounts
 
-  @create_attrs %{name: "Leprosorium"}
+  @create_attrs %{name: "Leprosorium", private: false}
   @update_attrs %{name: "Wolchat"}
   @invalid_attrs %{name: nil}
   @user %{username: "Grach", password: "yobaboba"}

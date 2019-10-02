@@ -31,6 +31,8 @@ defmodule DivisionWeb.UserController do
   end
 
   def show(conn, %{"id" => user_id}) do
+    you = conn.assigns[:current_user]
+
     msg_query =
       from msg in Message,
         limit: 6,
@@ -48,7 +50,7 @@ defmodule DivisionWeb.UserController do
 
     user = Division.Repo.one(query)
 
-    if conn.assigns[:current_user] |> can?(read(user)) do
+    if you |> can?(read(user)) do
       conn
       |> render("show.html", user: user, chat: user.chat)
     else

@@ -7,6 +7,8 @@ defmodule Division.Chats do
   alias Division.Repo
   alias Division.Chats.Chat
   alias Division.Chats.Message
+  alias Division.Chats.Access
+  alias Division.Accounts.User
 
   @doc """
   Returns the list of messages.
@@ -155,6 +157,19 @@ defmodule Division.Chats do
     Repo.one(query)
   end
 
+  def chat_name_for(%User{:id => id_a}, %User{:id => id_b}) do
+    [left, right] = Enum.sort([id_a, id_b])
+    "#{left}.#{right}"
+  end
+
+  def get_dialog(%User{} = user_a, %User{} = user_b) do
+    chat_query =
+      from chat in Chat,
+        where: chat.name == ^chat_name_for(user_a, user_b)
+
+    Repo.one(chat_query)
+  end
+
   @doc """
   Creates a chat.
 
@@ -218,5 +233,21 @@ defmodule Division.Chats do
   """
   def change_chat(%Chat{} = chat) do
     Chat.changeset(chat, %{})
+  end
+
+  @doc """
+  ## Examples
+
+      iex> create_access(%{field: value})
+      {:ok, %Access{}}
+
+      iex> create_access(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_access(attrs \\ %{}) do
+    %Access{}
+    |> Access.changeset(attrs)
+    |> Repo.insert()
   end
 end

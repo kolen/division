@@ -1,6 +1,8 @@
 defmodule DivisionWeb.ChatController do
   use DivisionWeb, :controller
 
+  import Canada, only: [can?: 2]
+
   alias Division.Chats
   alias Division.Chats.Chat
   alias Phoenix.LiveView
@@ -31,11 +33,17 @@ defmodule DivisionWeb.ChatController do
   def show(conn, %{"id" => id}) do
     chat = Chats.get_chat_with_messages(id)
 
-    LiveView.Controller.live_render(
-      conn,
-      ChatLiveView,
-      session: %{chat: chat, current_user: conn.assigns.current_user}
-    )
+    if conn.assigns[:current_user] |> can?(read(chat)) do
+      LiveView.Controller.live_render(
+        conn,
+        ChatLiveView,
+        session: %{chat: chat, current_user: conn.assigns.current_user}
+      )
+    else
+      conn
+      |> put_flash(:info, "Fuck you.")
+      |> redirect(to: Routes.page_path(conn, :index))
+    end
   end
 
   def edit(conn, %{"id" => id}) do

@@ -9,6 +9,8 @@
     <% end %>
     <%= if current_user(@conn).id == @user.id do %>
       <span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>
+    <% else %>
+      <span><%= link "Send message", to: Routes.user_path(@conn, :show, @user) %></span>
     <% end %>
   </div>
 
