@@ -5,7 +5,7 @@ defmodule DivisionWeb.ChatControllerTest do
   alias Division.Accounts
 
   @create_public_attrs %{name: "Leprosorium", private: false}
-  # @create_private_attrs %{name: "Secret Leprosorium", private: true}
+  @create_private_attrs %{name: "Secret Leprosorium", private: true}
   @update_attrs %{name: "Wolchat"}
   @invalid_attrs %{name: nil}
   @user %{username: "Grach", password: "yobaboba"}
@@ -77,23 +77,19 @@ defmodule DivisionWeb.ChatControllerTest do
     end
   end
 
-  # describe "create private chat" do
-  #   setup [:create_user]
+  describe "create private chat" do
+    setup [:create_user]
 
-  #   test "redirects to show when data is valid", %{conn: conn, user: user} do
-  #     conn =
-  #       conn
-  #       |> session_conn()
-  #       |> put_session(:current_user_id, user.id)
-  #       |> post(Routes.chat_path(conn, :create), chat: @create_private_attrs)
+    test "redirects to show when data is valid", %{conn: conn, user: user} do
+      conn =
+        conn
+        |> session_conn()
+        |> put_session(:current_user_id, user.id)
+        |> post(Routes.chat_path(conn, :create), chat: @create_private_attrs)
 
-  #     assert %{id: id} = redirected_params(conn)
-  #     assert redirected_to(conn) == Routes.chat_path(conn, :show, id)
-
-  #     conn = get(conn, Routes.chat_path(conn, :show, id))
-  #     assert html_response(conn, 200) =~ "Chat created successfully"
-  #   end
-  # end
+      assert redirected_to(conn) == Routes.page_path(conn, :index)
+    end
+  end
 
   describe "edit chat" do
     setup [:create_user]
