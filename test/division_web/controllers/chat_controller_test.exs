@@ -4,13 +4,14 @@ defmodule DivisionWeb.ChatControllerTest do
   alias Division.Chats
   alias Division.Accounts
 
-  @create_attrs %{name: "Leprosorium", private: false}
+  @create_public_attrs %{name: "Leprosorium", private: false}
+  # @create_private_attrs %{name: "Secret Leprosorium", private: true}
   @update_attrs %{name: "Wolchat"}
   @invalid_attrs %{name: nil}
   @user %{username: "Grach", password: "yobaboba"}
 
   def fixture(:chat) do
-    {:ok, chat} = Chats.create_chat(@create_attrs)
+    {:ok, chat} = Chats.create_chat(@create_public_attrs)
     chat
   end
 
@@ -47,7 +48,7 @@ defmodule DivisionWeb.ChatControllerTest do
     end
   end
 
-  describe "create chat" do
+  describe "create public chat" do
     setup [:create_user]
 
     test "redirects to show when data is valid", %{conn: conn, user: user} do
@@ -55,7 +56,7 @@ defmodule DivisionWeb.ChatControllerTest do
         conn
         |> session_conn()
         |> put_session(:current_user_id, user.id)
-        |> post(Routes.chat_path(conn, :create), chat: @create_attrs)
+        |> post(Routes.chat_path(conn, :create), chat: @create_public_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.chat_path(conn, :show, id)
@@ -75,6 +76,24 @@ defmodule DivisionWeb.ChatControllerTest do
       assert response =~ "New Chat"
     end
   end
+
+  # describe "create private chat" do
+  #   setup [:create_user]
+
+  #   test "redirects to show when data is valid", %{conn: conn, user: user} do
+  #     conn =
+  #       conn
+  #       |> session_conn()
+  #       |> put_session(:current_user_id, user.id)
+  #       |> post(Routes.chat_path(conn, :create), chat: @create_private_attrs)
+
+  #     assert %{id: id} = redirected_params(conn)
+  #     assert redirected_to(conn) == Routes.chat_path(conn, :show, id)
+
+  #     conn = get(conn, Routes.chat_path(conn, :show, id))
+  #     assert html_response(conn, 200) =~ "Chat created successfully"
+  #   end
+  # end
 
   describe "edit chat" do
     setup [:create_user]

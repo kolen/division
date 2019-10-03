@@ -53,6 +53,14 @@ defmodule Division.ChatsTest do
       assert {:error, %Ecto.Changeset{}} = Chats.create_chat(@invalid_attrs)
     end
 
+    test "chat_type/1 for regular chat" do
+      assert :chat = Chats.chat_type(%Chat{name: "lepr"})
+    end
+
+    test "chat_type/1 for dialog" do
+      assert :dialog = Chats.chat_type(%Chat{name: "123.456"})
+    end
+
     test "update_chat/2 with valid data updates the chat" do
       chat = chat_fixture()
       assert {:ok, %Chat{} = chat} = Chats.update_chat(chat, @update_attrs)

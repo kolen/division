@@ -170,6 +170,13 @@ defmodule Division.Chats do
     Repo.one(chat_query)
   end
 
+  def chat_type(%Chat{:name => name}) do
+    case String.split(name, ".") do
+      [_] -> :chat
+      [_, _] -> :dialog
+    end
+  end
+
   @doc """
   Creates a chat.
 
