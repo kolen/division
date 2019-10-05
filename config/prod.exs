@@ -12,7 +12,7 @@ use Mix.Config
 config :division, DivisionWeb.Endpoint,
   http: [port: 8888],
   url: [host: "division.im", port: 443],
-  check_origin: ["https://division.im"],
+  check_origin: false,
   https: [
     :inet6,
     port: 443,
