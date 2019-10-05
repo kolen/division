@@ -142,7 +142,7 @@ defmodule Division.Chats do
   def get_chat_with_messages(chat_id) do
     msg_query =
       from msg in Message,
-        limit: 6,
+        limit: 2048,
         order_by: [desc: msg.inserted_at],
         preload: [:user]
 
