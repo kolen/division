@@ -18,6 +18,7 @@ defmodule DivisionWeb.UserController do
     case Accounts.create_user(user_params |> Map.delete("avatar")) do
       {:ok, user} ->
         Accounts.update_user(user, %{"avatar" => user_params["avatar"]})
+
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:info, "Registered successfully.")

@@ -3,5 +3,4 @@ defmodule DivisionWeb.AccessController do
 
   alias Division.Chats
   alias Division.Chats.Access
-
 end
