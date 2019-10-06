@@ -14,7 +14,7 @@ defmodule DivisionWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :division,
-    gzip: false,
+    gzip: true,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   plug Plug.Static,
