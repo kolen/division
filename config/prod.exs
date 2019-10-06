@@ -12,7 +12,7 @@ use Mix.Config
 config :division, DivisionWeb.Endpoint,
   http: [port: 8888],
   url: [host: "division.im", port: 443],
-  check_origin: ["http://division.im"],
+  check_origin: ["https://division.im", "*.division.im"],
   cache_static_manifest: "/tmp/edeliver/division/builds/priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
