@@ -13,13 +13,6 @@ config :division, DivisionWeb.Endpoint,
   http: [port: 8888],
   url: [host: "division.im", port: 443],
   check_origin: false,
-  # https: [
-  #   :inet6,
-  #   port: 443,
-  #   cipher_suite: :strong,
-  #   keyfile: "/usr/local/etc/letsencrypt/live/division.im/privkey.pem",
-  #   certfile: "/usr/local/etc/letsencrypt/live/division.im/fullchain.pem"
-  # ],
   cache_static_manifest: "/tmp/edeliver/division/builds/priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
