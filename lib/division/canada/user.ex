@@ -16,6 +16,10 @@ defimpl Canada.Can, for: Division.Accounts.User do
     Chats.chat_type(chat) in [:chat]
   end
 
+  def can?(%User{} = user, :read, %Chat{private: true} = chat) do
+    Chats.check_access(chat, user)
+  end
+
   # def can?(%User{id: user_id}, :read, %Chat{private: true} = chat) do
   #   case Chats.chat_type(chat) do
   #     :dialog -> Integer.to_string(user_id) in Chats.dialog_user_ids(chat)

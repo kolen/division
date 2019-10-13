@@ -261,4 +261,26 @@ defmodule Division.Chats do
     |> Access.changeset(attrs)
     |> Repo.insert()
   end
+
+  @doc """
+  ## Examples
+
+      iex> check_access(chat, user_with_access)
+      {:ok, %Access{}}
+
+      iex> check_access(chat, user_without_access)
+      {:error, nil}
+
+  """
+  def check_access(%Chat{} = chat, %User{} = user) do
+    query =
+      from a in Access,
+        where: a.chat_id == ^chat.id,
+        where: a.user_id == ^user.id
+
+    case Repo.one(query) do
+      %Access{} = access -> {:ok, access}
+      _ -> {:error, nil}
+    end
+  end
 end

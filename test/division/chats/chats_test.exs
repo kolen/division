@@ -83,5 +83,9 @@ defmodule Division.ChatsTest do
       chat = chat_fixture()
       assert %Ecto.Changeset{} = Chats.change_chat(chat)
     end
+
+    test "check_access/2 returns :error tuple with nil if access is not exists" do
+      assert {:error, nil} = Chats.check_access(%Chat{id: 14}, %User{id: 88})
+    end
   end
 end
