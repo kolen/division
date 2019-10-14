@@ -54,7 +54,7 @@ defmodule Division.MixProject do
       {:distillery, "~> 2.1", warn_missing: false},
       {:ex_aws, "~> 2.0"},
       {:ex_aws_s3, "~> 2.0"},
-      {:hackney, "~> 1.6"},
+      {:hackney, ">= 1.15.2"},
       {:poison, "~> 3.1"},
       {:sweet_xml, "~> 0.6"}
     ]
