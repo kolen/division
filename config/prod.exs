@@ -19,6 +19,18 @@ config :division, DivisionWeb.Endpoint,
 config :logger, level: :info
 config :division, DivisionWeb.Endpoint, server: true
 
+config :arc,
+  storage: Arc.Storage.S3,
+  bucket: "division"
+
+config :ex_aws, :s3,
+  %{
+    access_key_id: System.get_env("DVSN_KEY"),
+    secret_access_key: System.get_env("DVSN_SECRET"),
+    host: %{"fra1" => System.get_env("DVSN_ENDPOINT")},
+    region: "fra1"
+  }
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

@@ -32,6 +32,8 @@ defmodule Division.Avatar do
     version
   end
 
+  def asset_host, do: "cdn.division.im"
+
   # Override the storage directory:
   def storage_dir(version, {file, scope}) do
     "uploads/user/avatars/#{scope.id}"
@@ -50,4 +52,4 @@ defmodule Division.Avatar do
   # def s3_object_headers(version, {file, scope}) do
   #   [content_type: MIME.from_path(file.file_name)]
   # end
-end
+ end
