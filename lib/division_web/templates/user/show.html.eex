@@ -5,7 +5,7 @@
       <%= nil -> %>
         <span>...</span>
       <%= _ -> %>
-        <%= Routes.static_path(@conn, Division.Avatar.url({@user.avatar, @user}, :thumb)) |> img_tag %>
+        <%= Division.Avatar.url({@user.avatar, @user}, :thumb, signed: true) |> img_tag %>
     <% end %>
     <%= if current_user(@conn).id == @user.id do %>
       <span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>

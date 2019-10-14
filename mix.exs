@@ -51,7 +51,12 @@ defmodule Division.MixProject do
       {:canada, "~> 2.0"},
       {:floki, "~> 0.22.0"},
       {:edeliver, ">= 1.7.0"},
-      {:distillery, "~> 2.1", warn_missing: false}
+      {:distillery, "~> 2.1", warn_missing: false},
+      {:ex_aws, "~> 2.0"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.6"},
+      {:poison, "~> 3.1"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 
