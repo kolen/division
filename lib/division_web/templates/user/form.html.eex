@@ -22,7 +22,11 @@
   <%= error_tag f, :password_confirmation %>
 
   <div>
-    <%= submit "Sign up!" %>
-    <span><%= link "already have account?", to: Routes.session_path(@conn, :new) %></span>
+    <%= if @action == "/register" do %>
+      <%= submit "Sign up!" %>
+      <span><%= link "already have account?", to: Routes.session_path(@conn, :new) %></span>
+    <%= else %>
+      <%= submit "Save changes." %>
+    <% end %>
   </div>
 <% end %>
