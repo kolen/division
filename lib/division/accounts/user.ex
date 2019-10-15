@@ -10,6 +10,8 @@ defmodule Division.Accounts.User do
     field :password_hash, :string
     field :username, :string
     field :avatar, Division.Avatar.Type
+    field :bio, :string
+
     # Durov, put back the wall!
     belongs_to :chat, Chat
 
@@ -23,11 +25,12 @@ defmodule Division.Accounts.User do
   @doc false
   def changeset(user, params) do
     user
-    |> cast(params, [:username, :password, :chat_id])
+    |> cast(params, [:username, :password, :chat_id, :bio])
     |> cast_attachments(params, [:avatar])
     |> validate_required([:username])
     |> unique_constraint(:username)
     |> validate_length(:password, min: 6)
+    |> validate_length(:bio, max: 512)
     |> validate_confirmation(:password)
     |> validate_format(:username, ~r/^[a-z0-9][a-z0-9]+[a-z0-9]$/i)
     |> validate_length(:username, min: 3)

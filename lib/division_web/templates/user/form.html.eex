@@ -13,6 +13,14 @@
   <%= file_input f, :avatar %>
   <%= error_tag f, :avatar %>
 
+  <%= label f, :bio %>
+  <%= text_input f, :bio %>
+  <%= error_tag f, :bio %>
+
+  <%= label f, :chat_id %> <span>use chat id</span>
+  <%= text_input f, :chat_id %>
+  <%= error_tag f, :chat_id %>
+
   <%= label f, :password %>
   <%= text_input f, :password, type: :password %>
   <%= error_tag f, :password %>
@@ -22,7 +30,11 @@
   <%= error_tag f, :password_confirmation %>
 
   <div>
-    <%= submit "Sign up!" %>
-    <span><%= link "already have account?", to: Routes.session_path(@conn, :new) %></span>
+    <%= if @action == "/register" do %>
+      <%= submit "Sign up!" %>
+      <span><%= link "already have account?", to: Routes.session_path(@conn, :new) %></span>
+    <%= else %>
+      <%= submit "Save changes." %>
+    <% end %>
   </div>
 <% end %>
