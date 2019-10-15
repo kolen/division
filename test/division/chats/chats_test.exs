@@ -6,7 +6,7 @@ defmodule Division.ChatsTest do
   describe "chats" do
     alias Division.Chats.Chat
 
-    @valid_attrs %{name: "some name", private: true}
+    @valid_attrs %{name: "some name", private: false}
     @update_attrs %{name: "some updated name"}
     @invalid_attrs %{name: nil}
 
