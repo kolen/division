@@ -10,7 +10,7 @@
 </div>
 
 <%= for message <- @chat.messages do %>
-  <p>
+  <p class="<%= addressed_message?(message.content, @current_user.username) %>">
     <%= message.user.username %>: <%= message.content %>
   </p>
 <% end %>
