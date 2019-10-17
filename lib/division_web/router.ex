@@ -51,6 +51,12 @@ defmodule DivisionWeb.Router do
     scope "/_matrix" do
       scope "/client" do
 	resources "/versions", VersionsController, only: [:index]
+
+	scope "/r0" do
+	  get "/login", SessionController, :show
+	  post "/login", SessionController, :create
+	  options "/login", LoginController, :options
+	end
       end
     end
   end
