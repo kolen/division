@@ -15,7 +15,9 @@ defmodule DivisionWeb.Router do
   end
 
   pipeline :matrix do
-    plug DivisionWeb.Plugs.Matrix
+    # Allow Matrix endpoint to be used from web clients, see
+    # https://matrix.org/docs/spec/client_server/r0.5.0#web-browser-clients
+    plug CORSPlug
   end
 
   scope "/", DivisionWeb do
