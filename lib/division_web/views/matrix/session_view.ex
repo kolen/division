@@ -6,7 +6,7 @@ defmodule DivisionWeb.Matrix.SessionView do
   def render("show.json", _) do
     %{
       "flows": [
-	%{"type": "m.login.password"}
+        %{"type": "m.login.password"}
       ]
     }
   end
@@ -19,15 +19,15 @@ defmodule DivisionWeb.Matrix.SessionView do
   end
 
   def render("login_success.json", %{user_id: user_id,
-				     access_token: access_token,
-				     device_id: device_id}) do
+                                     access_token: access_token,
+                                     device_id: device_id}) do
     %{
       "user_id" => user_id,
       "access_token" => access_token,
       "device_id" => device_id,
       "well_known" => %{
-	"m.homeserver" => %{"base_url" => Routes.page_url(Endpoint, :index)},
-	"m.identity_server" => %{"base_url" => Routes.page_url(Endpoint, :index)}
+        "m.homeserver" => %{"base_url" => Routes.page_url(Endpoint, :index)},
+        "m.identity_server" => %{"base_url" => Routes.page_url(Endpoint, :index)}
       }
     }
   end
