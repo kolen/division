@@ -14,6 +14,10 @@ defmodule DivisionWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :matrix do
+    plug DivisionWeb.Plugs.Matrix
+  end
+
   scope "/", DivisionWeb do
     pipe_through [:browser]
 
@@ -35,6 +39,18 @@ defmodule DivisionWeb.Router do
 
     resources "/profile", UserController, only: [:show, :edit, :update]
     resources "/chats", ChatController
+  end
+
+  scope alias: DivisionWeb.Matrix, as: :matrix do
+    pipe_through [:api, :matrix]
+
+    get "/.well-known/matrix/client", ServerDiscoveryController, :well_known
+
+    scope "/_matrix" do
+      scope "/client" do
+	resources "/versions", VersionsController, only: [:index]
+      end
+    end
   end
 
   # Other scopes may use custom stacks.
